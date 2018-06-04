@@ -1,0 +1,182 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+    </head>
+    <body>
+		<div class="navbar navbar-default navbar-fixed-top">
+		  <div class="container">
+			<div class="navbar-header">
+			  <a href="{{ url_for('admin') }}" class="navbar-brand"><b>SMS</b> Admin Panel</a>
+			  <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar-main">
+			  <ul class="nav navbar-nav">
+				<li><a href="{{ url_for('korisnici') }}"><b>Korisnici</b></a></li>
+				<li><a href="{{ url_for('kontakti') }}"><b>Kontakti</b></a></li>
+				<li><a href="{{ url_for('sabloni') }}"><b>Sabloni</b></a></li>
+			<!--	<li><a href="{{ url_for('home') }}"><i class="fa fa-pencil fa-lg"></i> &nbsp;	Pregled poruka</a></li> -->
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a href="{{ url_for('logs') }}" style="color: #d9230f; font-weight: bold;"><i class="fa fa-file-text fa-lg"></i> &nbsp;Logovi</a></li>
+				<li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out fa-lg"></i> &nbsp;Odjava</a></li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+	
+		<div class="content" style="padding: 40px 0 0 0;">
+			<div class="row">
+				<div class="col-lg-12">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Ime</th>
+								<th>Prezime</th>
+								<th>Telefon</th>
+								<th>Grupa</th>
+								<th></th>
+								<th></th>
+								<th></th>
+
+								<th>
+												<form role="form" action="{{ url_for('novi2') }}" method="post">
+												<div class="modal fade" id="modal-new" role="dialog">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal">&times;</button>
+																<h4 class="modal-title">Dodaj Kontakt</h4>
+															</div>
+															<div class="modal-body">
+																<div class="input-group" style="width:100%">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Ime:</span>
+																	<input type="text" class="form-control" value="" aria-describedby="basic-addon1" name="ime">
+																</div>
+																<br>
+																<div class="input-group" style="width:100%">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Prezime:</span>
+																	<input type="text" class="form-control" value="" aria-describedby="basic-addon1" name="prezime">
+																</div>
+																<br>
+																<div class="input-group" style="width:100%">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Telefon:</span>
+																	<input type="text" class="form-control" value="" aria-describedby="basic-addon1" name="broj">
+																</div>
+																<br>
+																<div class="input-group" style="width:100%;">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Grupa:</span>
+																	<select class="form-control" name="tipID">
+																	{% for tip in tipovi %}
+																		<option value="{{ tip[0] }}" >{{ tip[1] }}</option>
+																	{% endfor %}														
+																	</select>
+																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="submit" class="btn btn-info">Kreiraj</button>
+																<button type="button" class="btn btn-default" data-dismiss="modal">Izadji</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</form>
+											<a href="" data-toggle="modal" data-target="#modal-new">
+												<i class="fa fa-plus fa-lg"></i>
+											</a>
+											</th>
+							</tr>
+						</thead>
+							<tbody>
+								{% for korisnik in korisnici %}
+								<tr>
+										<td>{{ korisnik[1] }}</td>
+										<td>{{ korisnik[2] }}</td>
+										<td>{{ korisnik[3] }}</td>
+										<td>{{ korisnik[4] }}</td>
+										<td>{{ korisnik[5] }}</td>
+
+										<td width="50px">	
+									
+											<form role="form" action="{{ url_for('edit2') }}" method="post">
+												<div class="modal fade" id="modal-{{ korisnik[0] }}" role="dialog">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal">&times;</button>
+																<h4 class="modal-title">Izmeni Kontakt</h4>
+															</div>
+															<div class="modal-body">
+																<div class="input-group" style="width:100%">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Ime:</span>
+																	<input type="text" class="form-control" value="{{ korisnik[1] }}" aria-describedby="basic-addon1" name="ime">
+																</div>
+																<br>
+																<div class="input-group" style="width:100%">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Prezime:</span>
+																	<input type="text" class="form-control" value="{{ korisnik[2] }}" aria-describedby="basic-addon1" name="prezime">
+																</div>
+																<br>
+																<div class="input-group" style="width:100%">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Telefon:</span>
+																	<input type="text" class="form-control" value="{{ korisnik[3] }}" aria-describedby="basic-addon1" name="broj">
+																</div>
+																<br>
+																 <div class="input-group" style="width:100%;">
+																	<span class="input-group-addon" id="basic-addon1" style="width:90px;text-align: left;">Grupa:</span>
+																	<select class="form-control" name="tipID">
+																	{% for tip in tipovi %}
+																		<option value="{{ tip[0] }}">{{ tip[1] }}</option>
+																	{% endfor %}
+																	</select>
+																</div>
+																<input name="id" value="{{ korisnik[0] }}" type="text" hidden>
+																<div class="modal-footer">
+																	<button type="submit" class="btn btn-info">Sacuvaj</button>
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Izadji</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</form>
+											
+										<td width="50px">
+											<a href="" data-toggle="modal" data-target="#modal-{{ korisnik[0] }}">
+												<i class="fa fa-pencil-square-o fa-lg"></i>
+											</a>
+										</td>
+										<td width="50px">		
+											<form role="form" action="{{ url_for('izbrisi2') }}" method="post" id="delete-{{ korisnik[0] }}">
+												<input name="id" value="{{ korisnik[0] }}" type="text" hidden>
+												<a href="" onclick="document.getElementById('delete-{{ korisnik[0] }}').submit(); return false;">
+													<i class="fa fa-times fa-lg"></i>
+												</a>
+											</form>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+				</div>
+			</div>
+		</div>
+		<script src="/static/js/jquery-1.11.1.min.js"></script>
+        <script>window.jQuery || document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"><\/script>')</script>
+
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="/static/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		
+        <title>SMS Server</title>
+		
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">		
+		<link rel="stylesheet" href="/static/css/form-style.css">
+		<link rel="stylesheet" href="/static/css/style.css">           
+   </head>
+   <body id="home-body">
+        <!-- Content -->
+        <div class="top-content">        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                        	<h1><strong>SMS Server</strong></h1>
+                            <h1>Elektrotehnička škola "Mihajlo Pupin" Novi Sad</h1>
+                          	<div class="main-btn-link">
+                            	<a class="btn btn-link-1 launch-modal" href="#" data-modal-id="modal-login">Prijava korisnika</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>    
+      
+		<!-- Logovanje korisnika -->
+        <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">        			
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        				<h3 class="modal-title" id="modal-register-label">Prijava korisnika</h3>
+        			</div>   
+					
+        			<div class="modal-body">        				
+	                    <form role="form" action="{{ url_for('login') }}" method="post" class="registration-form">
+	                    	<div class="form-group">
+	                    		<label class="sr-only" for="form-first-name-login">Korisnicko ime</label>
+	                        	<input type="text" name="username" placeholder="Korisničko ime..." class="form-first-name form-control" id="form-first-name-login">
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="sr-only" for="form-password">Lozinka</label>
+	                        	<input type="password" name="password" placeholder="Lozinka..." class="form-last-name form-control" id="form-password-login">
+	                        </div>
+				<button type="submit" class="btn btn-button">Prijava</button>
+	                    </form>	                    
+        			</div>					     			
+        		</div>
+        	</div>
+        </div>
+        <!-- Javascript -->
+        <script src="/static/js/jquery-1.11.1.min.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/js/jquery.backstretch.min.js"></script>
+        <script src="/static/js/scripts.js"></script>
+        
+        <!--[if lt IE 10]>
+            <script src="js/placeholder.js"></script>
+        <![endif]-->
+    </body>
+</html>

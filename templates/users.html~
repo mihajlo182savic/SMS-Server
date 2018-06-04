@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		
+        <title>SMS Server - Elektrotehnička škola - "Mihajlo Pupin"</title>
+		
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+		<link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/style.css">  
+		<link rel="stylesheet" href="/static/css/form-style.css">
+         
+   </head>
+   <body> 
+		<!-- Meni za redovne korisnike -- >
+		<!--<nav class="navbar  navbar-default navbar-fixed-top">
+			  <div class="container-fluid">			
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+				</div>				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">				 	
+				  <ul class="nav navbar-nav navbar-right">
+					<li><a href="home.html" class="launch-modal" data-modal-id="modal-send"><i class="fa fa-paper-plane" aria-hidden="true"></i>SMS Kreator</a></li>
+					<li><a href="users.html"><i class="fa fa-users" aria-hidden="true"></i>Korisnici</a></li>
+					<li><a href="log.html"><i class="fa fa-file" aria-hidden="true"></i>Log</a></li>
+					<li><a href="logout.html"><i class="fa fa-sign-out" aria-hidden="true"></i>Odjava</a></li>					
+				  </ul>
+				</div><!-- /.navbar-collapse -->
+<!--			  </div><!-- /.container-fluid -->
+			<!--</nav>-->
+		    <nav class="navbar  navbar-default navbar-fixed-top">
+			  <div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="index"><i class="fa fa-home" aria-hidden="true"></i></a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				 	
+				  <ul class="nav navbar-nav navbar-right">
+					<li><a href="home"><i class="fa fa-paper-plane" aria-hidden="true"></i>SMS Kreator</a></li>
+					<li><a href="users" class="active"><i class="fa fa-users" aria-hidden="true"></i>Korisnici</a></li>
+					<li><a href="#" class="launch-modal" data-modal-id="modal-register"><i class="fa fa-user" aria-hidden="true"></i>Novi korisnik</a></li>
+					<li><a href="log"><i class="fa fa-file" aria-hidden="true"></i>Log</a></li>
+					<li><a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Odjava</a></li>
+					
+				  </ul>
+				</div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+			
+			 <div class="modal-dialog modal-send">
+        		<div class="modal-content">
+        			
+        			<div class="modal-header">
+        				<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--><i class="fa fa-paper-plane sticker" aria-hidden="true"></i><!--</button>-->
+        				<h3 class="modal-title" id="modal-send-label">Kontakti</h3>
+        				<p><button type="button"><i class="fa fa-plus" aria-hidden="true"></i>Dodaj novog</button></p>
+        			</div>
+        			<div class="modal-body"> 
+        				<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Ime</th>
+								<th>Prezime</th>
+								<th>Broj Telefona</th>
+								<th>Email</th>
+							</tr>
+						</thead>
+							<tbody>
+								{% for kor in korisnici %}			
+									<tr>
+										<td>{{ kor[0] }}</td>
+										<td>{{ kor[1] }}</td>
+										<td>{{ kor[2] }}</td>
+										<td>{{ kor[3] }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+        			</div>
+        		</div>
+        	</div>
+
+
+		<!--  Centralni sadrzaj-->      	
+        
+       <!-- Registracija korisnika -->
+        <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+        			
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        				<h3 class="modal-title" id="modal-register-label">Registracija korisnika</h3>
+        				<p>Unesite podatke o korisniku</p>
+        			</div>
+        			<div class="modal-body">
+        				
+	                   <form role="form" action="{{ url_for('create') }}" method="post" class="registration-form">
+	                    	<div class="form-group">
+	                    		<label class="sr-only" for="form-first-name">Ime</label>
+	                        	<input type="text" name="ime" placeholder="Ime..." class="form-first-name form-control" id="form-first-name">
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="sr-only" for="form-last-name">Prezime</label>
+	                        	<input type="text" name="prezime" placeholder="Prezime..." class="form-last-name form-control" id="form-last-name">
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="sr-only" for="form-email">Email</label>
+	                        	<input type="text" name="email" placeholder="Email..." class="form-email form-control" id="form-email">
+	                        </div>
+							<div class="form-group">
+	                        	<label class="sr-only" for="form-phone">Broj telefona</label>
+	                        	<input type="text" name="broj" placeholder="Telefon..." class="form-email form-control" id="form-email">
+	                        </div>
+							
+							<label class="radio-inline">
+							     <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="user_in_teachers_group" checked> Nastavno osoblje
+							</label>
+							<label class="radio-inline">
+								  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="user_in_others_group"> Nenastavno osoblje
+							</label>
+	                        
+							<div class= "col-md-12">									 
+									<!-- Dodavanje nastavnika u aktiv -->
+								<div class="box user_in_teachers_group">												
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="1" name="status"> Srpski jezik
+										</label>
+									</div>	
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="2" name="status"> Strani jezik
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="3" name="status"> Matematika
+										</label>
+									</div>
+									
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="4" name="status"> Prirodne nauke
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="5" name="status"> Društvene nauke
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="6" name="status">Računarstvo i automatika
+										</label>
+									</div>	
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="7" name="status">Elektronika
+										</label>
+									</div>	
+									<div class="checkbox">
+										<label>
+											<input type="radio" value="8" name="status">Energetika
+										</label>
+									</div>														
+								</div>
+							
+							<!-- Dodavanje nenastavnog osoblja u odre]enu grupu -->
+							<div class="box user_in_others_group">												
+								<div class="checkbox">
+									<label>
+										<input type="radio" value="9" name="status"> Uprava
+									</label>
+								</div>	
+								<div class="checkbox">
+									<label>
+										<input type="radio" value="10" name="status"> Računovodstvo
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="radio" value="11" name="status"> Spremačice
+									</label>
+								</div>	
+								<div class="checkbox">
+									<label>
+										<input type="radio" value="12" name="status"> Roditelj
+									</label>
+								</div>	
+								<div class="checkbox">
+									<label>
+										<input type="radio" value="13" name="status"> Učenik
+									</label>
+								</div>														
+							</div>												
+							<div class="box selected_contacts"> Div za kontakte</div>
+					 </div>
+							
+	                        <button type="submit" class="btn btn-create">Kreiraj korisnika</button>												
+						
+	                    </form>	                    
+        			</div>						        			
+        		</div>
+        	</div>
+        </div>				
+		
+        <!-- Javascript -->
+        <script src="/static/js/jquery-1.11.1.min.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/js/jquery.backstretch.min.js"></script>
+        <script src="/static/js/scripts.js"></script>
+        
+        <!--[if lt IE 10]>
+            <script src="js/placeholder.js"></script>
+        <![endif]-->
+
+    </body>
+
+</html>
